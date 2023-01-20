@@ -1,0 +1,27 @@
+function [redNPCR,greenNPCR,blueNPCR,avgNPCR,redUACI,greenUACI,blueUACI,avgUACI]=DiffrentialAttack(OrgImg)
+TempImg=OrgImg;
+[r,c,m]=size(TempImg);
+TempImg(floor(r/2),floor(c/3),2)=0;
+imgKeyOrg=ImageKeyGenerator(OrgImg);
+imgKeyTemp=ImageKeyGenerator(TempImg);
+OrgCipherImg=ImageEncrypter(OrgImg,imgKeyOrg);
+TempCipherImg=ImageEncrypter(TempImg,imgKeyTemp);
+%NPCR
+redNPCR=NPCRval(OrgCipherImg(:,:,1),TempCipherImg(:,:,1));
+redNPCR=redNPCR*100;
+greenNPCR=NPCRval(OrgCipherImg(:,:,2),TempCipherImg(:,:,2));
+greenNPCR=greenNPCR*100;
+blueNPCR=NPCRval(OrgCipherImg(:,:,3),TempCipherImg(:,:,3));
+blueNPCR=blueNPCR*100;
+NPCR=[redNPCR,greenNPCR,blueNPCR];
+avgNPCR=mean(NPCR);
+%UACI
+redUACI=UACIval(OrgCipherImg(:,:,1),TempCipherImg(:,:,1));
+redUACI=redUACI*100;
+greenUACI=UACIval(OrgCipherImg(:,:,2),TempCipherImg(:,:,2));
+greenUACI=greenUACI*100;
+blueUACI=UACIval(OrgCipherImg(:,:,3),TempCipherImg(:,:,3));
+blueUACI=blueUACI*100;
+UACI=[redUACI,greenUACI,blueUACI];
+avgUACI=mean(UACI);
+end

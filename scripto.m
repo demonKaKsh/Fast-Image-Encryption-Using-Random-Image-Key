@@ -1,0 +1,9 @@
+lefto=catenator(rotatedLeft,cutrlgc);
+figure;
+imshow(lefto);
+rightto=catenator(rotatedRight,cutrlgc);
+figure;
+imshow(rightto);
+downo=catenator(rotatedDown,cutrlgc);
+figure;
+imshow(downo);
